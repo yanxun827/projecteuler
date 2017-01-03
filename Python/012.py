@@ -29,7 +29,7 @@ divisors?
 # the number of divisors can be calculated.
 
 
-def prime_factors(n):
+def find_prime_factors(n):
 	i = 2
 	factors = []
 	while i * i <= n:
@@ -38,26 +38,28 @@ def prime_factors(n):
 		else:
 			n //= i
 			factors.append(i)
+			
 	if n > 1:
 		factors.append(n)
+		
 	return factors
 
 
-def divNum(limit):
+def num_with_divisors(limit):
 	x = 1
 	while True:
-		trinum = (x*(x+1))//2
+		triangle_num = (x * (x + 1)) // 2
 		x += 1
 
-		primelist = list(reversed(prime_factors(trinum))) # sort primes from large to small
+		primes = list(reversed(find_prime_factors(triangle_num))) # sort primes from large to small
 		timeslist = []
 
-		for prime in primelist:
-			times = primelist.count(prime)
+		for prime in primes:
+			times = primes.count(prime)
 			timeslist.append(times + 1)
-			primelist = [i for i in primelist if i != prime]
+			primes = [i for i in primes if i != prime]
 
-		if timeslist == []: # Empty Set, for when trinum == 1
+		if timeslist == []: # Empty Set, for when triangle_num == 1
 			timeslist = [1]
 
 		divisors = 1
@@ -65,10 +67,9 @@ def divNum(limit):
 			divisors *= times
 
 		if divisors > limit:
-			return trinum
-
+			return triangle_num
 
 
 if __name__ == '__main__':
 	limit = 500
-	print(divNum(limit))
+	print(num_with_divisors(limit))
