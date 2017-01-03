@@ -67,6 +67,7 @@ def divNum(limit):
 		if divisors > limit:
 			return trinum
 
+
 if __name__ == '__main__':
 	limit = 500
 	print(divNum(limit))
