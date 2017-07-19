@@ -26,50 +26,52 @@ divisors?
 """
 
 # Using the fact that the number of times the prime factors of the number repeats,
-# the number of divisors can be calculated.
+# the number of divisors can be calculated. (Divisor function).
+
+import collections
 
 
-def find_prime_factors(n):
-	i = 2
-	factors = []
-	while i * i <= n:
-		if n % i: # True means there is a remainder
-			i += 1
+def find_number_of_divisors(dividend):
+	prime_factors = []
+	prime_number = 2
+
+	while dividend > 1:
+		if dividend % prime_number == 0:
+			dividend //= prime_number
+			prime_factors.append(prime_number)
 		else:
-			n //= i
-			factors.append(i)
-			
-	if n > 1:
-		factors.append(n)
-		
-	return factors
+			prime_number += 1
+
+	counter = collections.Counter(prime_factors)
+	repeating_primes_counts = counter.values()
+
+	divisors_count = 1
+	for n in repeating_primes_counts:
+		divisors_count *= (n + 1)  # divisor function
+
+	return divisors_count
 
 
-def num_with_divisors(limit):
-	x = 1
+def find_triangle_number(limit):
+	triangle_num = 1
+	addition = 2
+
 	while True:
-		triangle_num = (x * (x + 1)) // 2
-		x += 1
+		triangle_num += addition
+		number_of_divisors = find_number_of_divisors(triangle_num)
 
-		primes = list(reversed(find_prime_factors(triangle_num))) # sort primes from large to small
-		timeslist = []
+		if number_of_divisors > limit:
+			break
 
-		for prime in primes:
-			times = primes.count(prime)
-			timeslist.append(times + 1)
-			primes = [i for i in primes if i != prime]
+		addition += 1
 
-		if timeslist == []: # Empty Set, for when triangle_num == 1
-			timeslist = [1]
+	return triangle_num
 
-		divisors = 1
-		for times in timeslist:
-			divisors *= times
 
-		if divisors > limit:
-			return triangle_num
+def main():
+	limit = 500
+	print(find_triangle_number(limit))
 
 
 if __name__ == '__main__':
-	limit = 500
-	print(num_with_divisors(limit))
+	main()

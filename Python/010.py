@@ -8,15 +8,26 @@ Find the sum of all the primes below two million.
 """
 
 
-def findPrime(limit):
-	a = [True] * limit                          # Initialize the prime boolean list
-	a[0] = a[1] = False
-	for (i, isprime) in enumerate(a):
-		if isprime:
-			yield i
-			for n in range(i*i, limit, i):     # Sieving, mark subsequent squared product as non-prime
-				a[n] = False
+def find_primes(limit):
+	mask = [True] * limit  # Initialise the prime boolean
+	mask[0] = mask[1] = False
+	primes = []
+
+	for num, is_prime in enumerate(mask):
+		if is_prime:
+			primes.append(num)
+			for multiple in range(num * num, limit, num):
+				# Sieving, mark subsequent multiples as non-prime. Starts with num*num instead of num*2 or num*3 etc.
+				# because they would've been marked non-prime beforehand.
+				mask[multiple] = False
+
+	return primes
+
+
+def main():
+	limit = 2000000
+	print(sum(find_primes(limit)))
+
 
 if __name__ == '__main__':
-	limit = 2000000
-	print(sum(list(findPrime(limit))))
+	main()

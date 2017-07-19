@@ -16,14 +16,16 @@ hundred natural numbers and the square of the sum.
 """
 
 
-
 def squared_diff_sum(number):
-	natural = [i for i in range(number+1)]
-	squared = [i**2 for i in natural]
-	sumsq = sum(squared)
-	sqsum = sum(natural)**2
-	return sqsum - sumsq
+	sum_squared = sum([i for i in range(number + 1)]) ** 2
+	squared_sum = sum([i ** 2 for i in range(number + 1)])
+	return sum_squared - squared_sum
 
-if __name__ == '__main__':
+
+def main():
 	number = 100
 	print(squared_diff_sum(number))
+
+
+if __name__ == '__main__':
+	main()

@@ -13,16 +13,20 @@ from 1 to 20?
 def smallest_common_multiple(limit):
 	num = 1
 	i = 1
+	step = 0
 	while i <= limit:
-		if num%i == 0: # check if num can be evenly divided by i
+		if num % i == 0:
 			i += 1
 			step = num
 		else:
-			num += step # look for smallest number divisible by i,
-						# by incrementing at number divisible by from 1 to i-1
+			num += step
 	return num
 
-if __name__ == '__main__':
+
+def main():
 	limit = 20
 	print(smallest_common_multiple(limit))
 
+
+if __name__ == '__main__':
+	main()

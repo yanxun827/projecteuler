@@ -11,15 +11,21 @@ Find the sum of all the even-valued terms in the sequence which do not
 exceed four million.
 """
 
-def Fibonacci(limit):
+
+def sum_even_fibonacci(limit):
 	total = 0
-	a, b = 0, 1
-	while b < limit:
-		if b % 2 == 0:
-			total += b
-		a, b = b, a+b
+	number, next_num = 1, 2
+	while number < limit:
+		if number % 2 == 0:
+			total += number
+		number, next_num = next_num, number + next_num
 	return total
 
-if __name__	== '__main__':
+
+def main():
 	limit = 4000000
-	print(Fibonacci(limit))
+	print(sum_even_fibonacci(limit))
+
+
+if __name__ == '__main__':
+	main()

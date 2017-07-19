@@ -9,20 +9,20 @@ What is the 10001st prime number?
 """
 
 
-def findPrime(position):
-    primes = []
-    number = 2
-    while len(primes) < position:
-        isprime = True
-        for i in primes:
-            if number % i == 0:
-                isprime = False
-                break
-        if isprime == True:
-            primes.append(number)
-        number += 1
-    return primes[-1]
+def find_prime(position):
+	primes = [2]
+	number = 3
+	while len(primes) != position:
+		if all(number % i for i in primes) != 0:
+			primes.append(number)
+		number += 2
+	return primes[-1]
+
+
+def main():
+	position = 10001
+	print(find_prime(position))
+
 
 if __name__ == "__main__":
-    position = 10001
-    print(findPrime(position))
+	main()
